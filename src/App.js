@@ -1,25 +1,26 @@
-import logo from './logo.svg';
+
+import { useState } from 'react';
+import Navbar from './components/Navbar';
 import './App.css';
+import { counterContext } from './context/Context';
 
 function App() {
+  // Initialize useState 'count' with a default value of 0. Provide 'setCount' method to update this state.
+  const [count, setCount] = useState(0);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {/* Provide the counter state and the updater function through context to the child components */}
+      <counterContext.Provider value={{count, setCount}}>
+        <Navbar/>
+        <div>
+          {/* Button element which increments the count state by 1 on each click */}
+          <button onClick={() => setCount((count) => count + 1)}>
+            count is {count}
+          </button>
+        </div>
+      </counterContext.Provider>
+    </>
   );
 }
-
 export default App;
